@@ -4,13 +4,13 @@ provider "azurerm" {
 }
 
 module "rg" {
-  source   = "./modules/resource-group"
+  source   = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/resource-group?ref=prod"
   name     = var.resource_group_name
   location = var.location
 }
 
 module "vnet" {
-  source              = "./modules/vnet"
+  source              = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/moduless/vnet?ref=prod"
   name                = var.vnet_name
   address_space       = ["10.0.0.0/16"]
   location            = var.location
@@ -18,7 +18,7 @@ module "vnet" {
 }
 
 module "subnet" {
-  source               = "./modules/subnet"
+  source               = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/subnet?ref=prod"
   name                 = var.subnet_name
   resource_group_name  = module.rg.name
   virtual_network_name = module.vnet.name
@@ -26,21 +26,21 @@ module "subnet" {
 }
 
 module "pip" {
-  source              = "./modules/public-ip"
+  source              = ".git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/public-ip?ref=prod"
   name                = var.public_ip_name
   location            = var.location
   resource_group_name = module.rg.name
 }
 
 module "nsg" {
-  source              = "./modules/nsg"
+  source              = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/nsg?ref=prod"
   name                = var.nsg_name
   location            = var.location
   resource_group_name = module.rg.name
 }
 
 module "nic" {
-  source              = "./modules/nic"
+  source              = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/nic?ref=prod"
   name                = var.nic_name
   location            = var.location
   resource_group_name = module.rg.name
@@ -50,7 +50,7 @@ module "nic" {
 }
 
 module "vm" {
-  source              = "./modules/vm"
+  source              = "git::https://github.com/bkrrajmali/azure-terraform-modules/tree/prod/modules/vm?ref=prod"
   name                = var.vm_name
   location            = var.location
   resource_group_name = module.rg.name
